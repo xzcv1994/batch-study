@@ -1,0 +1,11 @@
+#dataSource
+dataSource:
+  url: jdbc:postgresql://127.0.0.1:5432/postgres
+  user: yangseungbin
+  password: yang123
+
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+
