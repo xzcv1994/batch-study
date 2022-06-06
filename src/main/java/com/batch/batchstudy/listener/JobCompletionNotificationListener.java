@@ -19,11 +19,11 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
     @Override
     public void beforeJob(JobExecution jobExecution) {
         logger.info("========== BEFORE JOB ==========");
-        logger.info("============ RESULT ===========");
+        logger.info("============ MEMBERS ===========");
         List<Member> list = service.getAllMembers();
 
         for(Member member : list){
-            logger.info("id : {}, name : {}", member.id, member.name);
+            logger.info("id : {}, name : {}, last_login : {}", member.id, member.name, member.last_login);
         }
     }
 
@@ -35,7 +35,7 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
             List<Member> list = service.getAllMembers();
 
             for(Member member : list){
-                logger.info("id : {}, name : {}", member.id, member.name);
+                logger.info("id : {}, name : {}, last_login : {}", member.id, member.name, member.last_login);
             }
         }
     }

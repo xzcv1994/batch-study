@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Timestamp;
 import java.util.*;
 
 public class MemberCopyProcessor implements ItemProcessor<Member, Member> {
@@ -16,11 +18,19 @@ public class MemberCopyProcessor implements ItemProcessor<Member, Member> {
 
     @Override
     public Member process(Member member) throws Exception {
-        String messageId = String.format("%7d", Math.abs(new Random().nextLong()));
-        String id = member.id + messageId;
-        String name = member.name + messageId;
-        Member newMember = new Member(id, name);
+        Timestamp last_login = new Timestamp(System.currentTimeMillis());
+        Member newMember = new Member(member.id, member.name, last_login);
 
         return newMember;
     }
+
+//    @Override
+//    public Member process(Member member) throws Exception {
+//        String messageId = String.format("%d", Math.abs(new Random().nextInt(999) + 100));
+//        String id = member.id + messageId;
+//        String name = member.name + messageId;
+//        Member newMember = new Member(id, name);
+//
+//        return newMember;
+//    }
 }

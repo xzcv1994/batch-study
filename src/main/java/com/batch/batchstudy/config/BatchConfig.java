@@ -59,7 +59,7 @@ public class BatchConfig {
                 .fetchSize(10)
                 .dataSource(dataSource())
                 .rowMapper(new BeanPropertyRowMapper<>(Member.class))
-                .sql("SELECT id, name FROM member")
+                .sql("SELECT id, name, last_login FROM member")
                 .name("reader")
                 .build();
     }
@@ -73,7 +73,7 @@ public class BatchConfig {
     public ItemWriter<Member> writer(){
         return new JdbcBatchItemWriterBuilder<Member>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO member (id, name) VALUES(:id, :name)")
+                .sql("UPDATE member set last_login = :last_login where id = :id")
                 .dataSource(dataSource())
                 .build();
     }
@@ -159,5 +159,13 @@ public class BatchConfig {
 //        queryProvider.setSortKeys(sortKeys);
 //
 //      return queryProvider.getObject();
+//    }
+//    @Bean
+//    public ItemWriter<Member> writer(){
+//    return new JdbcBatchItemWriterBuilder<Member>()
+//            .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
+//            .sql("INSERT INTO member (id, name) VALUES(:id, :name)")
+//            .dataSource(dataSource())
+//            .build();
 //    }
 }
